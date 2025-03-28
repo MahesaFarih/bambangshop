@@ -113,3 +113,26 @@ Code complexity would increase (e.g., a Product model handling HTTP requests).
 
 Tight coupling would make it harder to modify or test components independently.
 #### Reflection Publisher-3
+1. This tutorial uses the Push Model of the Observer Pattern. The NotificationService in the Main app actively pushes data (e.g., product_title, action) to subscribers via HTTP requests (e.g., subscriber.update(payload)). Subscribers do not request data; they passively receive updates when events (create/delete/promote) occur.
+
+2. Pros/Cons of the Pull Model
+Advantages:
+
+- Subscribers could fetch data on-demand, reducing unnecessary network traffic.
+
+- Publisher (Main app) avoids managing subscriber-specific data formatting.
+
+Disadvantages:
+
+- Latency: Subscribers might miss real-time updates, requiring polling (e.g., periodic checks).
+
+- Complexity: Subscribers need to implement logic to query the Main app for updates.
+
+- Resource Overhead: Frequent polling could strain the Main app (e.g., /product/updates endpoint).
+
+3. Impact of Removing Multi-Threading
+- Performance Degradation: Synchronous HTTP requests would block the Main app’s execution until all subscribers acknowledge the notification.
+
+- Scalability Issues: With many subscribers, the Main app could become unresponsive.
+
+- User Experience: Slow response times for CRUD operations (e.g., POST /product).
