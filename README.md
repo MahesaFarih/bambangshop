@@ -96,5 +96,20 @@ Singletons in Rust are cumbersome to implement safely (requiring Arc<Mutex<T>> o
 DashMap handles concurrent access natively, aligning with Rust’s zero-cost abstractions for concurrency.
 
 #### Reflection Publisher-2
+Separation of Service and Repository:
+Separating "Service" and "Repository" from the Model aligns with the Single Responsibility Principle.
 
+Repository: Handles data access (e.g., CRUD operations).
+
+Service: Encapsulates business logic (e.g., validation, workflow).
+This separation reduces code duplication and makes the system more maintainable.
+
+Impact of Using Only Models:
+If we used only Models:
+
+Models would become bloated with both data and business logic.
+
+Code complexity would increase (e.g., a Product model handling HTTP requests).
+
+Tight coupling would make it harder to modify or test components independently.
 #### Reflection Publisher-3
