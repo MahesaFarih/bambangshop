@@ -77,6 +77,23 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+Reflection Publisher-1 Questions
+Observer Pattern Interface vs. Struct:
+In the Observer pattern, an interface (or trait in Rust) defines a contract for subscribers. In this case, a single Subscriber struct suffices because the notification logic is centralized in the NotificationService. However, a trait could be useful if subscribers needed varied update behaviors (e.g., email vs. SMS notifications).
+
+Data Structure Choice (Vec vs. DashMap):
+DashMap (a concurrent hashmap) is necessary here because:
+
+It ensures thread-safe access to subscribers during concurrent operations (e.g., adding/deleting subscribers while notifying).
+
+It provides O(1) lookups by id/url, unlike Vec, which would require O(n) searches.
+
+Thread Safety (DashMap vs. Singleton):
+Rust’s ownership model enforces thread safety at compile time. DashMap is chosen over a Singleton pattern because:
+
+Singletons in Rust are cumbersome to implement safely (requiring Arc<Mutex<T>> or similar).
+
+DashMap handles concurrent access natively, aligning with Rust’s zero-cost abstractions for concurrency.
 
 #### Reflection Publisher-2
 
